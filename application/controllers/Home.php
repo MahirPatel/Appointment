@@ -16,7 +16,7 @@ class Home extends CI_Controller {
 	public function updateData()
 	{
 		$updateData = [
-			'role_name' => 'Super Admin',
+			'role_name' => 'Supers Admin',
 			'role_code' => 'SA',
 			'status'	=> 'Active'
 		];
