@@ -10,14 +10,14 @@ class General
     }
 
     // Insert Data Start
-    public function insertData($tbl,$data,$is_batch=false){
+    public function db_insert($tbl,$data,$is_batch=false){
         if(!$is_batch){
             $inserted_id = $this->CI->db->insert($tbl,$data);
         }else{
             $inserted_id = $this->CI->db->insert_batch($tbl, $data);
         }
         if($inserted_id){
-            return ['status' => 'success','inserted_id'=> $this->CI->db->insert_id()];
+            return ['status' => 'success','data'=> $this->CI->db->insert_id()];
         }else{
             return ['status' => 'fail'];
         }
@@ -25,17 +25,31 @@ class General
     // Insert Data End
 
     // Update Data Start
-    public function updateData($tbl,$data,$condition="",$is_batch=false){
+    public function db_update($tbl,$data,$condition="",$is_batch=false){
         if(!$is_batch){
             $updated_id = $this->CI->db->update($tbl,$data,$condition);
         }else{
             $updated_id = $this->CI->db->update_batch($tbl,$data,$condition);
         }
         if($updated_id){
-            return ['status' => 'success','affected_rows'=> $this->CI->db->affected_rows()];
+            return ['status' => 'success','data'=> $this->CI->db->affected_rows()];
         }else{
             return ['status' => 'fail'];
         }
     }
     // Update Data End
+
+    // Remove Data Start
+    public function db_delete($tbl,$condition){
+        $removed_id = $this->CI->db->delete($tbl,$condition);
+        if($this->CI->db->affected_rows()>0){
+            return ['status' => 'success'];
+        }else{
+            return ['status' => 'fail'];
+        }
+    }
+    // Remove Data End
+
+
+
 }
